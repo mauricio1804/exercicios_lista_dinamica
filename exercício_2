@@ -1,0 +1,143 @@
+class Main {
+  
+  private No primeiro;
+  private No ultimo;
+  private String nomedalista;
+
+  //construtor da classe Main
+  public Main(String nome){
+    nomedalista = nome;
+
+    //Como a lista é inicialmente vazia, tanto o primeiro como o ultimo
+
+    //receberão o valor nulo.
+
+    primeiro = ultimo = null;
+  }
+
+  public Main (){
+    nomedalista = "Funcinários da ACME: ";
+
+    primeiro = ultimo = null;
+  }
+
+  public void Inserenafrente(String item, int idade){
+    /* Verifica se a lista está vazia. se tiver, o primeiro e o ultimo receberão o no que está sendo criado*/
+
+    if (vazia())
+    primeiro = ultimo = new No (item);
+
+    // Quando a lista não está vazia o primeiro recebe o nó criado e seu prox recebe o antigo primeiro.
+
+    else
+    primeiro = new No (item, primeiro); 
+  }
+
+  public void Inserenofundo(String item, int idade){
+    if (vazia())
+    primeiro = ultimo = new No (item);
+
+    else
+  {
+
+  ultimo.setProx(new No (item));
+  ultimo = ultimo.getProx();
+}
+  }
+
+  public String Removenafrente(){
+    //verifica se está vazia, se sim, não faz nada e retorna nulo.
+
+    if (vazia())
+  {
+    return null;
+  }
+  String item = primeiro.getFuncionarios_ACME();
+  // verifica se o primeiro é igual ao ultimo, se sim, existe apenas um.
+
+  //elemento na lista. atribui o valor nulo para ambos.
+
+  if (primeiro == ultimo)
+  primeiro = ultimo = null;
+
+  // caso contrario, atribui o endereço do segundo nó à varavel primeiro.
+
+  else
+  primeiro = primeiro.getProx();
+  return item;
+  }
+
+  public String Removenofundo (){
+    if (vazia())
+    {
+      return null;
+    }
+    String item = ultimo.getFuncionarios_ACME();
+    if (primeiro == ultimo)
+    primeiro = ultimo = null;
+    else
+    {
+      No atual = primeiro;
+      while (atual.getProx() != ultimo)
+      atual = atual.getProx();
+      ultimo = atual;
+      atual.setProx(null);
+
+    }
+    return item;
+  }
+
+  public boolean vazia(){
+    // se a variaval primeiro é nula, então a lista não possui elementos (nós), ela está vazia
+
+    return primeiro == null;
+  }
+  
+  public String Escrevelista (){
+    String temp = "";
+    if (vazia()){
+      temp += "vazia" + nomedalista;
+      return temp;
+    } // if vazia
+    temp += "Os da " + nomedalista + "\n\n";
+    No atual = primeiro;
+    while (atual != null){
+      temp += atual.getFuncionarios_ACME() + ", ";
+      atual = atual.getProx();
+    }
+    temp += "\n";
+    return temp;
+  }
+  public String exibeprim(){
+    if (primeiro == null) return "primeiro: null";
+
+    else  return "primeiro: "+ primeiro.getFuncionarios_ACME();
+  }
+  public String exibeUlt(){
+    if (ultimo == null) return "ultimo: null";
+    else return "ultimo: " + ultimo.getFuncionarios_ACME();
+  } 
+  public String consulta(String Funcionarios_ACME){
+   
+    No atual = primeiro;
+
+    while (atual != null){
+      if (atual.getFuncionarios_ACME() == Funcionarios_ACME){
+        
+      return atual.getFuncionarios_ACME();
+    } 
+     atual = atual.getProx();
+    
+  }
+  return "Valor não encontrado.";
+  }
+  public static void main(String[] args) { 
+    Main l1 = new Main();
+    l1.Inserenafrente("João", 30);
+    l1.Inserenafrente("Maria", 31);
+    l1.Inserenafrente("Carlos", 23);
+    l1.Inserenofundo("Pedro", 28);
+    System.out.println(l1.consulta(""));
+    
+  }
+}
