@@ -1,0 +1,152 @@
+class Main {
+  
+  private No primeiro;
+  private No ultimo;
+  private String nomedalista;
+
+  //construtor da classe Main
+  public Main(String nome){
+    nomedalista = nome;
+
+    //Como a lista é inicialmente vazia, tanto o primeiro como o ultimo
+
+    //receberão o valor nulo.
+
+    primeiro = ultimo = null;
+  }
+
+  public Main (){
+    nomedalista = "Funcinários da ACME: ";
+
+    primeiro = ultimo = null;
+  }
+
+  public void Inserenafrente(String item){
+    /* Verifica se a lista está vazia. se tiver, o primeiro e o ultimo receberão o no que está sendo criado*/
+
+    if (vazia())
+    primeiro = ultimo = new No (item);
+
+    // Quando a lista não está vazia o primeiro recebe o nó criado e seu prox recebe o antigo primeiro.
+
+    else
+    primeiro = new No (item, primeiro); 
+  }
+
+  public void Inserenofundo(String item){
+    if (vazia())
+    primeiro = ultimo = new No (item);
+
+    else
+  {
+
+  ultimo.setProx(new No (item));
+  ultimo = ultimo.getProx();
+}
+  }
+
+  public String Removenafrente(){
+    //verifica se está vazia, se sim, não faz nada e retorna nulo.
+
+    if (vazia())
+  {
+    return null;
+  }
+  String item = primeiro.getLista();
+  // verifica se o primeiro é igual ao ultimo, se sim, existe apenas um.
+
+  //elemento na lista. atribui o valor nulo para ambos.
+
+  if (primeiro == ultimo)
+  primeiro = ultimo = null;
+
+  // caso contrario, atribui o endereço do segundo nó à varavel primeiro.
+
+  else
+  primeiro = primeiro.getProx();
+  return item;
+  }
+
+  public String Removenofundo (){
+    if (vazia())
+    {
+      return null;
+    }
+    String item = ultimo.getLista();
+    if (primeiro == ultimo)
+    primeiro = ultimo = null;
+    else
+    {
+      No atual = primeiro;
+      while (atual.getProx() != ultimo)
+      atual = atual.getProx();
+      ultimo = atual;
+      atual.setProx(null);
+
+    }
+    return item;
+  }
+
+  public boolean vazia(){
+    // se a variaval primeiro é nula, então a lista não possui elementos (nós), ela está vazia
+
+    return primeiro == null;
+  }
+  
+  public String Escrevelista (){
+    String temp = "";
+    if (vazia()){
+      temp += "vazia" + nomedalista;
+      return temp;
+    } // if vazia
+    temp += "Os da " + nomedalista + "\n\n";
+    No atual = primeiro;
+    while (atual != null){
+      temp += atual.getLista() + ", ";
+      atual = atual.getProx();
+    }
+    temp += "\n";
+    return temp;
+  }
+  public String exibeprim(){
+    if (primeiro == null) return "primeiro: null";
+
+    else  return "primeiro: "+ primeiro.getLista();
+  }
+  public String exibeUlt(){
+    if (ultimo == null) return "ultimo: null";
+    else return "ultimo: " + ultimo.getLista();
+  } 
+  public Main intercalar(Main Lista1, Main Lista2){
+   
+    No atual = Lista1.primeiro;
+    No atual2 = Lista2.primeiro;
+    Main l3 = new Main();
+
+    while (atual != null){
+      l3.Inserenofundo(atual.getLista());
+      l3.Inserenofundo(atual2.getLista());
+      System.out.println(atual.getLista());
+      System.out.println(atual2.getLista());
+      atual = atual.getProx();
+      atual2 = atual2.getProx();
+      
+  }
+  return l3;
+  }
+  public static void main(String[] args) { 
+    Main l1 = new Main();
+    Main l2 = new Main();
+    l1.Inserenafrente("Maria");
+    l1.Inserenafrente("Carlos");
+    l1.Inserenofundo("Pedro");
+
+    l2.Inserenafrente("Claudia");
+    l2.Inserenafrente("Claudio");
+    l2.Inserenafrente("Claudiane");
+
+    l1.intercalar(l1, l2);
+   
+    
+  }
+}
