@@ -1,0 +1,28 @@
+public class No{
+  private String Lista;
+  private No prox;
+
+  //propriedades da classses
+  public No getProx(){ 
+    return this.prox;
+  }
+
+  public void setProx(No prox){
+    this.prox = prox;
+  }
+
+  public String getLista1(){
+    return this.Lista;
+  }
+  
+  //Construtor da classe No
+  public No(String Lista1_novo){ 
+    Lista = Lista_novo;
+    prox = null;
+  }
+
+  public No(String Lista_novo, No ligacao){
+    Lista = Lista_novo;
+    prox = ligacao;
+  }
+}
